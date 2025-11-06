@@ -101,4 +101,48 @@ public class ScoreController(DatabaseService database, SessionRepository session
 
         return Ok(new ScoresResponse(parsedScores, totalCount));
     }
+
+    [HttpGet("pin")]
+    [EndpointDescription("Get a scores pinned status")]
+    [ProducesResponseType(typeof(ProblemDetailsResponseType), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetailsResponseType), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(PinResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetPinnedStatus([Range(1, int.MaxValue)] int id, CancellationToken ct = default)
+    {
+        var session = HttpContext.GetCurrentSession();
+        
+        var score = await database.Scores.GetScore(id, new QueryOptions(true), ct);
+
+        if (score == null)
+            return Problem(ApiErrorResponse.Detail.ScoreNotFound, statusCode: StatusCodes.Status404NotFound);
+
+        if (score.UserId != session.UserId)
+            return Problem(ApiErrorResponse.Detail.AuthorizationFailed, statusCode: StatusCodes.Status401Unauthorized);
+
+        return Ok(new PinResponse(score));
+    }
+
+    [Authorize]
+    [HttpPost("pin")]
+    [EndpointDescription("Pin a score to your profile")]
+    [ProducesResponseType(typeof(ProblemDetailsResponseType), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetailsResponseType), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(PinResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> PinScore([Range(1, int.MaxValue)] int id, CancellationToken ct = default)
+    {
+        var session = HttpContext.GetCurrentSession();
+        
+        var score = await database.Scores.GetScore(id, new QueryOptions(true), ct);
+
+        if (score == null)
+            return Problem(ApiErrorResponse.Detail.ScoreNotFound, statusCode: StatusCodes.Status404NotFound);
+
+        if (score.UserId != session.UserId)
+            return Problem(ApiErrorResponse.Detail.AuthorizationFailed, statusCode: StatusCodes.Status401Unauthorized);
+
+        score.IsPinned = !score.IsPinned;
+        await database.Scores.UpdateScore(score);
+
+        return Ok(new PinResponse(score));
+    }
 }
