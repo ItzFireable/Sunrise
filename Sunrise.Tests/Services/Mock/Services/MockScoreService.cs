@@ -36,6 +36,7 @@ public class MockScoreService(MockService service)
             GameMode = GetRandomGameMode(),
             BeatmapStatus = service.Beatmap.GetRandomBeatmapStatus(),
             IsPassed = service.GetRandomBoolean(),
+            IsPinned = service.GetRandomBoolean(),
             BeatmapHash = service.GetRandomString(32),
             PerformancePoints = service.GetRandomInteger(length: 3),
             MaxCombo = service.GetRandomInteger(length: 3),
