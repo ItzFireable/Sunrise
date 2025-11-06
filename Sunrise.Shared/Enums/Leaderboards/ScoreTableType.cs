@@ -4,5 +4,6 @@ public enum ScoreTableType
 {
     Best = 0,
     Recent = 1,
-    Top = 2
+    Top = 2,
+    Pinned = 3
 }

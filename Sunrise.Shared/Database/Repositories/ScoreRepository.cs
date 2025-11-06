@@ -185,6 +185,10 @@ public class ScoreRepository(ILogger<ScoreRepository> logger, SunriseDbContext d
                     .FilterPassedScoreableScores()
                     .SelectBeatmapsBestScores();
                 break;
+            case ScoreTableType.Pinned:
+                scoresQuery = scoresQuery
+                    .Where(s => s.IsPinned);
+                break;
             case ScoreTableType.Recent:
                 break;
             default:
@@ -203,6 +207,10 @@ public class ScoreRepository(ILogger<ScoreRepository> logger, SunriseDbContext d
                     .OrderByDescending(s => s.WhenPlayed);
                 break;
             case ScoreTableType.Recent:
+                scoresQuery = scoresQuery
+                    .OrderByDescending(s => s.WhenPlayed);
+                break;
+            case ScoreTableType.Pinned:
                 scoresQuery = scoresQuery
                     .OrderByDescending(s => s.WhenPlayed);
                 break;
