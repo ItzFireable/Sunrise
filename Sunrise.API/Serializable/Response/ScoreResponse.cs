@@ -30,6 +30,7 @@ public class ScoreResponse
         Grade = score.Grade;
         Id = score.Id;
         IsPassed = score.IsPassed;
+        IsPinned = score.IsPinned;
         HasReplay = score.ReplayFileId != null;
         LeaderboardRank = score.LocalProperties.LeaderboardPosition;
         MaxCombo = score.MaxCombo;
@@ -82,6 +83,9 @@ public class ScoreResponse
 
     [JsonPropertyName("is_passed")]
     public bool IsPassed { get; set; }
+    
+    [JsonPropertyName("is_pinned")]
+    public bool IsPinned { get; set; }
 
     [JsonPropertyName("has_replay")]
     public bool HasReplay { get; set; }

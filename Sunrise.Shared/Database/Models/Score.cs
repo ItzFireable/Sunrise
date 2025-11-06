@@ -13,7 +13,7 @@ namespace Sunrise.Shared.Database.Models;
 [Index(nameof(UserId))]
 [Index(nameof(UserId), nameof(BeatmapId))]
 [Index(nameof(UserId), nameof(SubmissionStatus), nameof(BeatmapStatus))]
-[Index(nameof(BeatmapId), nameof(IsScoreable), nameof(IsPassed), nameof(SubmissionStatus))]
+[Index(nameof(BeatmapId), nameof(IsScoreable), nameof(IsPassed), nameof(IsPinned), nameof(SubmissionStatus))]
 [Index(nameof(GameMode), nameof(SubmissionStatus), nameof(BeatmapStatus), nameof(WhenPlayed))]
 [Index(nameof(BeatmapHash))]
 public class Score
@@ -52,6 +52,7 @@ public class Score
     public Mods Mods { get; set; }
     public string Grade { get; set; }
     public bool IsPassed { get; set; }
+    public bool IsPinned { get; set; }
     public bool IsScoreable { get; set; }
     public SubmissionStatus SubmissionStatus { get; set; } = SubmissionStatus.Unknown;
     public GameMode GameMode { get; set; }
