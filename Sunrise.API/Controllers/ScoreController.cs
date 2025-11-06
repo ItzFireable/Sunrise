@@ -103,7 +103,7 @@ public class ScoreController(DatabaseService database, SessionRepository session
     }
 
     [HttpGet("pin")]
-    [EndpointDescription("Get a scores pinned status")]
+    [EndpointDescription("Get pin status of a score")]
     [ProducesResponseType(typeof(ProblemDetailsResponseType), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetailsResponseType), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(PinResponse), StatusCodes.Status200OK)]
