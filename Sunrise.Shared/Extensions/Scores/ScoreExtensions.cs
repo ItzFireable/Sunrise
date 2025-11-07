@@ -132,13 +132,12 @@ public static class ScoreExtensions
             Grade = split[12],
             Mods = (Mods)int.Parse(split[13]),
             IsPassed = bool.Parse(split[14]),
-            IsPinned = bool.Parse(split[15]),
             IsScoreable = beatmap.IsScoreable,
-            GameMode = (GameMode)int.Parse(split[16]),
+            GameMode = (GameMode)int.Parse(split[15]),
             WhenPlayed = DateTime.UtcNow,
             OsuVersion = split[17].Trim(),
             BeatmapStatus = beatmap.Status,
-            ClientTime = DateTime.ParseExact(split[17], "yyMMddHHmmss", null)
+            ClientTime = DateTime.ParseExact(split[16], "yyMMddHHmmss", null)
         };
 
         score.LocalProperties = score.LocalProperties.FromScore(score);
