@@ -18,6 +18,7 @@ public class ApiScoreGetPinnedScoreTests(IntegrationDatabaseFixture fixture) : A
         var client = App.CreateClient().UseClient("api").UseUserAuthToken(await GetUserAuthTokens());
 
         var score = await CreateTestScore();
+        score.IsPinned = true;
 
         // Act
         var response = await client.GetAsync($"score/{score.Id}/pin");
