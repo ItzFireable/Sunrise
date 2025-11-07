@@ -232,7 +232,6 @@ public static class ScoreExtensions
             score.Grade,
             (int)score.Mods,
             score.IsPassed,
-            score.IsPinned,
             (int)score.GameMode.ToVanillaGameMode(),
             score.ClientTime,
             score.OsuVersion,
